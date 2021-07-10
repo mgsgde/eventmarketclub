@@ -1,0 +1,58 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "This server provides the public http get methods, that are used by the eventmarket webapp.",
+  "main": "index.js",
+  "scripts": {
+    "build": "cd ../frontend && npm i && npm run build",
+    "prestart": "npm i",
+    "start": "NODE_ENV=PRODUCTION env-cmd node index.js",
+    "dev": "NODE_ENV=DEVELOPMENT env-cmd npx nodemon -w . -e js,yaml ./index.js",
+    "tests": "NODE_ENV=DEVELOPMENT env-cmd mocha tests --bail"
+  },
+  "keywords": [
+    "swagger"
+  ],
+  "license": "Unlicense",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.20.0",
+    "connect": "^3.2.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "express": "^4.17.1",
+    "express-jwt": "^6.0.0",
+    "express-openapi-validator": "^4.12.6",
+    "express-rate-limit": "^5.2.5",
+    "jwks-rsa": "^2.0.2",
+    "knex": "^0.21.6",
+    "mysql": "^2.18.1",
+    "oas-tools": "^2.1.8",
+    "promise-throttle": "^1.1.2",
+    "sqlite3": "^5.0.2",
+    "swagger-ui-express": "^4.1.6",
+    "yamljs": "^0.3.0"
+  },
+  "devDependencies": {
+    "add": "^2.0.6",
+    "babel-eslint": "^10.1.0",
+    "env-cmd": "^10.1.0",
+    "eslint": "^7.1.0",
+    "eslint-config-google": "^0.14.0",
+    "husky": "^4.2.5",
+    "jwt-decode": "^3.1.2",
+    "lint-staged": "^10.2.6",
+    "mocha": "^7.2.0",
+    "nodemon": "^2.0.6"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  }
+}

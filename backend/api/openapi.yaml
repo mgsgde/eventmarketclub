@@ -1,0 +1,1847 @@
+openapi: 3.0.3
+info:
+  title: eventmarket API
+  description: |-
+     Oauth2 client id for authorization via this swagger ui: 
+     ```
+     Uz2jwG5Bmno5MIZ3TDqMeyweF5uwRb94
+     ```
+  version: '1.0.0'
+servers:
+- url: /api
+paths:
+  /hosts/{host_user_id_auth0}/events:    
+    post:
+      tags:
+        - hosts 
+      parameters:
+      - name: host_user_id_auth0
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string         
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/eventsPostReqBody'
+        required: true   
+      responses:
+        "200":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HostEvent'
+        "400":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "401":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "403":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'                 
+        "404":
+          description: Page not available
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "503":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - OAuth2: []           
+      x-swagger-router-controller: controller            
+    get:
+      tags:
+        - hosts      
+      parameters:
+      - name: host_user_id_auth0
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string  
+      - name: page
+        in: query
+        description: Page index of the results to return. First page is 1.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int64
+          default: 1
+      - name: per_page
+        in: query
+        description: Number of results per page.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int64 
+          default: 20                        
+      responses:
+        "200":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HostEvents'
+        "400":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "401":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "403":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'   
+        "404":
+          description: Page not available
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "503":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'    
+      security:
+      - OAuth2: []                                   
+      x-swagger-router-controller: controller                       
+  /hosts/{host_user_id_auth0}/events/{event_id}: 
+    get:
+      tags:
+        - hosts      
+      parameters:
+      - name: host_user_id_auth0
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string       
+      - name: event_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string                    
+      responses:
+        "200":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HostEvent'
+        "400":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "401":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "403":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'   
+        "404":
+          description: Page not available
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "503":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'                     
+      x-swagger-router-controller: controller                                
+    patch:
+      tags:
+        - hosts      
+      operationId: eventsPut
+      description: "Only host can patch his own events."
+      parameters:
+      - name: host_user_id_auth0
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string         
+      - name: event_id
+        in: path
+        description: ''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer      
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/eventsPatchReqBody'
+        required: true   
+      responses:
+        "200":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HostEvent'
+        "400":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "401":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "403":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'   
+        "404":
+          description: Page not available
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "503":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'       
+      security:
+      - OAuth2: []                
+      x-swagger-router-controller: controller                                     
+    delete:
+      tags:
+        - hosts      
+      operationId: eventsDelete
+      description: Only the host can delete his own event.
+      parameters:
+      - name: host_user_id_auth0
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string         
+      - name: event_id
+        in: path
+        description: ''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer 
+      responses:
+        "200":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        "400":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "401":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "403":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'   
+        "404":
+          description: Page not available
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "503":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'   
+      security:
+      - OAuth2: []                
+      x-swagger-router-controller: controller
+  /hosts/{reviewer_user_id_auth0}/guests/{reviewee_user_id_auth0}/ratings:
+    post: 
+      tags:
+        - hosts      
+      operationId: ratingsPost     
+      parameters:              
+      - name: reviewer_user_id_auth0
+        in: path
+        required: true
+        explode: false
+        schema:
+          type: string 
+      - name: reviewee_user_id_auth0
+        in: path
+        required: true
+        explode: false
+        schema:
+          type: string                             
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RatingReqBody'
+        required: true
+      responses:
+        "200":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rating'
+        "400":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "401":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "403":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'   
+        "404":
+          description: Page not available
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "503":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - OAuth2: []           
+      x-swagger-router-controller: controller           
+  /guests/{guest_user_id_auth0}/events:
+    get: 
+      tags:
+        - guests      
+      description: ""
+      parameters:
+      - name: guest_user_id_auth0
+        in: path
+        description: ''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string           
+      - name: page
+        in: query
+        description: Page index of the results to return. First page is 1.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int64
+          default: 1
+      - name: per_page
+        in: query
+        description: Number of results per page.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int64 
+          default: 20   
+      responses:
+        "200":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuestEvents'
+        "400":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "401":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "403":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'   
+        "404":
+          description: Page not available
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "503":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - OAuth2: []           
+      x-swagger-router-controller: controller                              
+  /guests/{guest_user_id_auth0}/events/{event_id}:
+    get: 
+      tags:
+        - guests      
+      description: "
+      Only returns host_email_auth0, whatsapp_group_link, meeting_point and guests when status is 'ACCEPTED'.
+      "
+      parameters:
+      - name: guest_user_id_auth0
+        in: path
+        description: ''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string  
+      - name: event_id
+        in: path
+        description: ''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer                         
+      responses:
+        "200":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuestEvent'
+        "400":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "401":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "403":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'   
+        "404":
+          description: Page not available
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "503":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - OAuth2: []           
+      x-swagger-router-controller: controller                                    
+  /guests/{reviewer_user_id_auth0}/hosts/{reviewee_user_id_auth0}/ratings:
+    post: 
+      tags:
+        - guests      
+      operationId: ratingsPost     
+      parameters:              
+      - name: reviewer_user_id_auth0
+        in: path
+        required: true
+        explode: false
+        schema:
+          type: string               
+      - name: reviewee_user_id_auth0
+        in: path
+        required: true
+        explode: false
+        schema:
+          type: string             
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RatingReqBody'
+        required: true
+      responses:
+        "200":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rating'
+        "400":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "401":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "403":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'   
+        "404":
+          description: Page not available
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "503":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - OAuth2: []           
+      x-swagger-router-controller: controller                 
+  /events:
+    get:
+      tags:
+        - events
+      description: "Returns all future events sorted by start time."
+      parameters:     
+      - name: search_query
+        in: query
+        description: ''
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string                 
+      - name: page
+        in: query
+        description: Page index of the results to return. First page is 1.
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int64
+          default: 1
+      - name: per_page
+        in: query
+        description: Number of results per page.
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int64 
+          default: 20          
+      responses:
+        "200":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Events'
+        "400":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "401":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "403":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'   
+        "404":
+          description: Page not available
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "503":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - OAuth2: []           
+      x-swagger-router-controller: controller                                   
+  /events/{event_id}/guests:
+    get: 
+      tags:
+        - events      
+      description: "
+      Only returns host_email_auth0, whatsapp_group_link, meeting_point and guests when status is 'ACCEPTED'.
+      "
+      parameters:
+      - name: event_id
+        in: path
+        description: ''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string          
+      - name: not_rejected
+        in: query
+        description: Page index of the results to return. First page is 1.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean   
+      - name: page
+        in: query
+        description: Page index of the results to return. First page is 1.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int64
+          default: 1
+      - name: per_page
+        in: query
+        description: Number of results per page.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int64 
+          default: 20   
+      responses:
+        "200":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Guests'
+        "400":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "401":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "403":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'   
+        "404":
+          description: Page not available
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "503":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - OAuth2: []           
+      x-swagger-router-controller: controller                                  
+  /events/{event_id}/guests/{guest_user_id_auth0}:
+    post:
+      tags:
+        - events      
+      description: "
+        Can only be called by guest.
+        "
+      parameters:
+      - name: event_id
+        in: path
+        description: ''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer      
+      - name: guest_user_id_auth0
+        in: path
+        description: ''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string     
+      responses:
+        "200":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Guest'
+        "400":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "401":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "403":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'   
+        "404":
+          description: Page not available
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "503":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - OAuth2: 
+        - post:guests           
+      x-swagger-router-controller: controller           
+    patch:
+      tags:
+        - events        
+      operationId: guestsPatch
+      description: "
+      Can only be called by host.
+      "
+      parameters:
+      - name: event_id
+        in: path
+        description: ''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer      
+      - name: guest_user_id_auth0
+        in: path
+        description: ''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string                 
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventsGuestsPatchReqBody'
+        required: true   
+      responses:
+        "200":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Guest'
+        "400":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "401":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "403":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'   
+        "404":
+          description: Page not available
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "503":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'       
+      security:
+      - OAuth2: []                
+      x-swagger-router-controller: controller   
+    delete:
+      tags:
+        - events        
+      operationId: guestsdelete
+      description: "
+      Guest and Host can delete a guest.
+
+      If guest deletes himself, he gets a negative rating.
+      "
+      parameters:
+      - name: event_id
+        in: path
+        description: ''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer    
+      - name: guest_user_id_auth0
+        in: path
+        description: ''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string                 
+      responses:
+        "200":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        "400":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "401":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "403":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'   
+        "404":
+          description: Page not available
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "503":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'       
+      security:
+      - OAuth2: []                
+      x-swagger-router-controller: controller            
+  /users/{user_id_auth0}:
+    get: 
+      tags:
+        - users
+      parameters:            
+      - name: user_id_auth0
+        in: path
+        required: true
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        "400":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "401":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "403":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'   
+        "404":
+          description: Page not available
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "503":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - OAuth2: []           
+      x-swagger-router-controller: controller             
+    patch: 
+      tags:
+        - users
+      parameters:            
+      - name: user_id_auth0
+        in: path
+        required: true
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UsersPatchReqBody'
+        required: true             
+      responses:
+        "200":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        "400":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "401":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "403":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'   
+        "404":
+          description: Page not available
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "503":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - OAuth2: []           
+      x-swagger-router-controller: controller               
+    delete: 
+      tags:
+        - users      
+      description: "
+      Deletes all guest data.
+
+      Gets all events, then deletes all other guests of these events and finally deletes the events itselves.
+
+      Deletes auth0 user.
+      "
+      parameters:            
+      - name: user_id_auth0
+        in: path
+        required: true
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        "400":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "401":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "403":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'   
+        "404":
+          description: Page not available
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "503":
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - OAuth2: []           
+      x-swagger-router-controller: controller           
+  /likes:
+    get:
+      tags:
+        - misc      
+      operationId: likesGet       
+      responses:
+        '200':
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Likes'
+        '400':
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Page not available
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: controller  
+    post:
+      tags:
+        - misc        
+      operationId: likesPost 
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RatingsPostRequestBody'            
+      responses:
+        '200':
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Likes'
+        '400':
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Page not available
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: controller        
+  /number_of_likes:
+    get:
+      tags:
+        - misc        
+      operationId: numberOfRatingsGet       
+      responses:
+        '200':
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NumberOfRatings'
+        '400':
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Page not available
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: wildcard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: controller          
+components:
+  schemas:
+    Success:
+      required:
+      - status
+      - message
+      type: object
+      properties:
+        status:
+          type: integer
+        message:
+          type: string         
+    Error:
+      required:
+      - status
+      - message
+      type: object
+      properties:
+        status:
+          type: integer
+        message:
+          type: string   
+    Likes:
+      type: array
+      items:
+        type: object
+        required:
+        - id
+        - like
+        - datetime
+        properties:
+          id:
+            type: number
+          like:
+            type: integer
+            minimum: 0
+            maximum: 1            
+          datetime:
+            type: string
+            format: date-time             
+    NumberOfRatings:
+      type: object
+      required:
+      - likes
+      - dislikes
+      properties:
+        likes: 
+          type: number
+        dislikes: 
+          type: number  
+    RatingsPostRequestBody:
+      type: object
+      required:
+      - like
+      properties:
+        like: 
+          type: integer
+          minimum: 0
+          maximum: 1
+    eventsPostReqBody:
+      type: object
+      required:
+        - city
+        - start
+        - end
+        - free_places
+        - total_places
+        - description
+        - type
+        - whatsapp_group_link
+        - meeting_point
+      properties:
+        city: 
+          type: string
+        start:
+          type: string
+          format: date-time
+        end:         
+          type: string
+          format: date-time
+        free_places:
+          type: integer        
+        total_places:
+          type: integer
+        description:
+          type: string  
+        type:
+          type: string
+          enum:
+          - WORKSHOP
+          - DAYGAME
+          - NIGHTGAME
+          - MEETUP
+        whatsapp_group_link:
+          type: string
+        meeting_point:
+          type: string          
+    eventsPatchReqBody:
+      type: object
+      properties:
+        city: 
+          type: string
+        start:
+          type: string
+          format: date-time
+        end:         
+          type: string
+          format: date-time
+        free_places:
+          type: integer           
+        total_places:
+          type: integer        
+        description:
+          type: string  
+        type:
+          type: string
+          enum:
+          - WORKSHOP
+          - DAYGAME
+          - NIGHTGAME
+          - MEETUP  
+        whatsapp_group_link:
+          type: string
+        meeting_point:
+          type: string               
+    Events:
+      required:
+      - items
+      - page
+      - per_page
+      - total_number_of_items
+      type: object
+      properties:
+        per_page:
+          type: integer
+          format: int64
+        page:
+          type: integer
+          format: int64
+        total_number_of_items:
+          type: integer
+          format: int64
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event'
+    Event:
+      type: object
+      required:
+        - event_id
+        - host_user_id_auth0
+        - host_nickname_auth0
+        - city
+        - start
+        - end
+        - type
+        - free_places
+        - total_places
+        - description
+        - host_rating_sum
+        - host_rating_count
+      properties:
+        event_id:
+          type: integer
+          format: int32
+        host_user_id_auth0:
+          type: string
+        host_nickname_auth0:
+          type: string                   
+        city: 
+          type: string
+        start:
+          type: string
+          format: date-time
+        end:         
+          type: string
+          format: date-time
+        free_places:
+          type: integer        
+        total_places:
+          type: integer
+        description:
+          type: string                        
+        type:
+          type: string
+          enum:
+          - WORKSHOP
+          - DAYGAME
+          - NIGHTGAME
+          - MEETUP  
+        host_rating_sum:
+          type: integer
+        host_rating_count:
+          type: integer         
+    GuestEvents:
+      required:
+      - items
+      - page
+      - per_page
+      - total_number_of_items
+      type: object
+      properties:
+        per_page:
+          type: integer
+          format: int64
+        page:
+          type: integer
+          format: int64
+        total_number_of_items:
+          type: integer
+          format: int64
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/GuestEvent'                   
+    GuestEvent:
+      type: object
+      required:
+        - event_id
+        - host_user_id_auth0
+        - host_nickname_auth0
+        - city
+        - start
+        - end
+        - type
+        - free_places
+        - total_places
+        - description
+        - host_rating_sum
+        - host_rating_count
+        - status
+      properties:
+        event_id:
+          type: integer
+          format: int32
+        host_user_id_auth0:
+          type: string
+        host_nickname_auth0:
+          type: string                    
+        city: 
+          type: string
+        start:
+          type: string
+          format: date-time
+        end:         
+          type: string
+          format: date-time
+        free_places:
+          type: integer        
+        total_places:
+          type: integer
+        description:
+          type: string                        
+        type:
+          type: string
+          enum:
+          - WORKSHOP
+          - DAYGAME
+          - NIGHTGAME
+          - MEETUP
+        status:
+          type: string
+          enum:
+            - PENDING
+            - ACCEPTED
+            - REJECTED
+        host_rating_sum:
+          type: integer
+        host_rating_count:
+          type: integer                    
+        host_email_auth0:
+          type: string                  
+        whatsapp_group_link:
+          type: string  
+        meeting_point:
+          type: string                      
+    HostEvents:
+      required:
+      - items
+      - page
+      - per_page
+      - total_number_of_items
+      type: object
+      properties:
+        per_page:
+          type: integer
+          format: int64
+        page:
+          type: integer
+          format: int64
+        total_number_of_items:
+          type: integer
+          format: int64
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/HostEvent'                   
+    HostEvent:
+      type: object
+      required:
+        - event_id
+        - host_user_id_auth0
+        - host_nickname_auth0
+        - city
+        - start
+        - end
+        - type
+        - free_places
+        - total_places
+        - description
+        - host_email_auth0
+        - whatsapp_group_link
+        - meeting_point
+        - host_rating_sum
+        - host_rating_count
+      properties:
+        event_id:
+          type: integer
+          format: int32
+        host_user_id_auth0:
+          type: string
+        host_nickname_auth0:
+          type: string                    
+        city: 
+          type: string
+        start:
+          type: string
+          format: date-time
+        end:         
+          type: string
+          format: date-time
+        free_places:
+          type: integer        
+        total_places:
+          type: integer
+        description:
+          type: string                        
+        type:
+          type: string
+          enum:
+          - WORKSHOP
+          - DAYGAME
+          - NIGHTGAME
+          - MEETUP
+        host_rating_sum:
+          type: integer
+        host_rating_count:
+          type: integer               
+        host_email_auth0:
+          type: string                  
+        whatsapp_group_link:
+          type: string
+        meeting_point:
+          type: string          
+    Guests:
+      required:
+      - items
+      - page
+      - per_page
+      - total_number_of_items
+      type: object
+      properties:
+        per_page:
+          type: integer
+          format: int64
+        page:
+          type: integer
+          format: int64
+        total_number_of_items:
+          type: integer
+          format: int64
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Guest'
+    EventsGuestsPatchReqBody:    
+      type: object    
+      properties:
+        status: 
+          type: string
+          enum:
+            - ACCEPTED
+            - PENDING
+            - REJECTED                                     
+    Guest:
+      type: object
+      required:
+        - event_id
+        - guest_user_id_auth0
+        - guest_nickname_auth0
+        - guest_email_auth0
+        - status
+        - guest_rating_sum
+        - guest_rating_count   
+      properties:
+        event_id:
+          type: integer
+          format: int32
+        guest_user_id_auth0:
+          type: string
+        guest_nickname_auth0:
+          type: string
+        guest_email_auth0: 
+          type: string
+        status: 
+          type: string
+          enum:
+            - ACCEPTED
+            - PENDING
+            - REJECTED
+        guest_rating_sum:
+          type: integer
+        guest_rating_count:
+          type: integer   
+    Ratings:
+      required:
+      - items
+      - page
+      - per_page
+      - total_number_of_items
+      type: object
+      properties:
+        per_page:
+          type: integer
+          format: int64
+        page:
+          type: integer
+          format: int64
+        total_number_of_items:
+          type: integer
+          format: int64
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Rating'  
+    Rating:
+      type: object
+      required:
+        - event_id
+        - reviewer_user_id_auth0
+        - reviewee_user_id_auth0
+        - rating              
+      properties:
+        event_id:
+          type: integer
+          format: int32
+        reviewer_user_id_auth0:
+          type: string
+        reviewee_user_id_auth0:
+          type: string
+        rating: 
+          type: integer           
+    RatingReqBody:     
+      type: object
+      required:
+        - event_id
+        - rating              
+      properties:
+        event_id:
+          type: integer
+          format: int32
+        rating: 
+          type: integer           
+    UsersPatchReqBody:
+      type: object     
+      properties:
+        email_auth0:
+          type: string
+        nickname_auth0:
+          type: string                              
+    User:
+      type: object
+      required:
+        - user_id_auth0
+        - email_auth0
+        - nickname_auth0  
+        - rating_sum
+        - rating_count          
+      properties:
+        user_id_auth0:
+          type: string
+        email_auth0:
+          type: string
+        nickname_auth0:
+          type: string   
+        rating_sum:
+          type: integer
+        rating_count:
+          type: integer
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://eventmarket.eu.auth0.com/authorize?audience=https://eventmarket.com/api
+          scopes:
+            general: write:events

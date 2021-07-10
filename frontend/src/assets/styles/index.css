@@ -1,0 +1,159 @@
+body, .card, .modal-content { 
+    background-color: #000403!important;
+    font-family: "PT Mono",monospace;
+}
+
+.modal-content {
+	border: 1px solid #393939;
+}
+
+* {
+	color: #fff;
+}
+
+.green-font, th, h5, label {
+   color:  #94febf;
+}
+
+tr:hover {
+  background: rgb(148, 254, 191, 0.1)!important;
+}
+
+.small-text {
+	font-size: .813rem;
+}
+
+.green-border {
+	border: 1px solid #44f1a6;
+    border-radius: 16px;
+    padding: 1.25rem;
+}
+
+.btn-outline-success {
+    color: rgb(148, 254, 191);
+    border-color: rgb(148, 254, 191);
+}
+
+.container {
+	max-width: 1400px;
+}
+
+.checked {
+  color: orange;
+}
+
+.card-body {
+	padding: 10px;
+}
+
+.thumb-button:hover {
+	cursor: pointer;
+	color: orange;
+}
+
+a:hover {
+  cursor: pointer;
+}
+
+.loading {
+  position: absolute;
+  z-index: 999;
+  height: 4em;
+  width: 4em;
+  overflow: show;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.overlay {
+    background: #e9e9e9;
+    position: absolute;
+    z-index: 999;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+}
+
+    /* add a negative top-margin to the flex container */
+.flexContainer {
+        /* ... your existing flex container styles here */
+    margin: -15px 0 0 0;
+} 
+    /* add a corresponding positive top margin to all flex items (all direct children of the flex container) */
+.flexContainer-mt-15 > * {
+    margin-top: 15px;
+}
+
+.flexContainer-mt-10 > * {
+    margin-top: 10px;
+}
+
+.nav-link.active {
+  color: #007bff!important;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color:  #94febf;
+}
+
+
+.form-control, .form-control *, .form-control:disabled {
+  background: black;
+  color: white;
+}
+
+textarea:focus, input:focus {
+  background: black!important;
+  color: white!important;
+}
+
+select {
+  background: black!important;
+  color: white!important;
+}
+
+input::-webkit-calendar-picker-indicator { 
+  background: #007bff; 
+  cursor: pointer
+}
+
+.btn-outline-secondary {
+  color: white;
+  border-color: white;
+}
+
+.modal-footer {
+  border-top: none;
+}
+
+.modal-header {
+  border-bottom: none;
+}
+
+.rating {
+  direction: rtl;
+}
+
+.rating > span:hover,
+.rating > span:hover ~ span {
+  color: transparent;
+}
+.rating > span:hover:before,
+.rating > span:hover ~ span:before {
+   color: orange;
+   cursor: pointer;
+}
+
+.row {
+  margin-right: 0px;
+  margin-left: 0px;
+}
+
+.border-top {
+  border-top: 1px solid #94febf!important;
+}
