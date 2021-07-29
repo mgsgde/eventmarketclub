@@ -4,7 +4,7 @@ info:
   description: |-
      Oauth2 client id for authorization via this swagger ui: 
      ```
-     Uz2jwG5Bmno5MIZ3TDqMeyweF5uwRb94
+     Q9fFzmyoJ5cZGn9Z7SGuAXMoC4bijtNk
      ```
   version: '1.0.0'
 servers:
@@ -1466,8 +1466,6 @@ components:
           type: string
           enum:
           - WORKSHOP
-          - DAYGAME
-          - NIGHTGAME
           - MEETUP  
         whatsapp_group_link:
           type: string
@@ -1535,8 +1533,6 @@ components:
           type: string
           enum:
           - WORKSHOP
-          - DAYGAME
-          - NIGHTGAME
           - MEETUP  
         host_rating_sum:
           type: integer
@@ -1842,6 +1838,6 @@ components:
       type: oauth2
       flows:
         implicit:
-          authorizationUrl: https://eventmarket.eu.auth0.com/authorize?audience=https://eventmarket.com/api
+          authorizationUrl: https://eventmarketclub.eu.auth0.com/authorize?audience=https://eventmarketclub.com/api
           scopes:
             general: write:events

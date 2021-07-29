@@ -9,8 +9,8 @@ const config = require('./config.js');
 const https = require('https');
 const fs = require('fs');
 const options = {
-  key: fs.readFileSync('./tls_keys/eventmarket.key'),
-  cert: fs.readFileSync('./tls_keys/eventmarket.cer'),
+  key: fs.readFileSync('./tls_keys/eventmarketclub.key'),
+  cert: fs.readFileSync('./tls_keys/eventmarketclub.cer'),
 };
 
 // ########################################

@@ -18,7 +18,7 @@ const log = async function(data1, data2 = '') {
 // ########################################
 
 exports.get_access_token = async function get_access_token(audience) {
-  const url = `https://${process.env.DOMAIN_AUTH0}/oauth/token`;
+  const url = `https://${process.env.DOMAIN_OAUTH2}/oauth/token`;
 
   const options = {
     method: 'POST',
@@ -27,8 +27,8 @@ exports.get_access_token = async function get_access_token(audience) {
       'content-type': 'application/json',
     },
     data: JSON.stringify({
-      client_id: process.env.CLIENT_ID_AUTH0,
-      client_secret: process.env.CLIENT_SECRET_AUTH0,
+      client_id: process.env.BACKEND_CLIENT_ID_OAUTH2,
+      client_secret: process.env.BACKEND_CLIENT_SECRET_OAUTH2,
       audience: audience,
       grant_type: 'client_credentials',
     }),
@@ -65,7 +65,7 @@ exports.get_users = async function get_users({page, per_page, sort, q, access_to
     queryString = `${queryString}&q=${require('querystring').escape(q)}`;
   }
 
-  const url = `https://${process.env.DOMAIN_AUTH0}/api/v2/users?include_totals=true&${queryString}`;
+  const url = `https://${process.env.DOMAIN_OAUTH2}/api/v2/users?include_totals=true&${queryString}`;
 
   const options = {
     method: 'GET',
@@ -99,7 +99,7 @@ exports.get_users = async function get_users({page, per_page, sort, q, access_to
 };
 
 exports.delete_user = async function delete_user(user_id_auth0, access_token) {
-  const url = `https://${process.env.DOMAIN_AUTH0}/api/v2/users/${user_id_auth0}`;
+  const url = `https://${process.env.DOMAIN_OAUTH2}/api/v2/users/${user_id_auth0}`;
 
   const options = {
     method: 'DELETE',
@@ -126,7 +126,7 @@ exports.delete_user = async function delete_user(user_id_auth0, access_token) {
 };
 
 exports.patch_user = async function patch_user(user_id_auth0, patched_user, access_token) {
-  const url = `https://${process.env.DOMAIN_AUTH0}/api/v2/users/${user_id_auth0}`;
+  const url = `https://${process.env.DOMAIN_OAUTH2}/api/v2/users/${user_id_auth0}`;
 
   const options = {
     method: 'PATCH',

@@ -5,7 +5,7 @@ let in_progress_promise
 
 export async function start_fetching_access_token(auth0) {
   if (!access_token || is_expired(await access_token)) {
-    access_token = get_token_from_auth0({audience: process.env.REACT_APP_AUTH0_EVENTMARKET_API_ID}, auth0)
+    access_token = get_token_from_auth0({audience: process.env.REACT_APP_AUDIENCE_OAUTH2}, auth0)
   }
 
   const token = await access_token

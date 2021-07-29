@@ -5,7 +5,7 @@ const config = require('../config');
 const knex = require('knex')(config.DATABASE);
 const rateLimit = require('express-rate-limit');
 const users_auth0 = require('../utils/users_auth0');
-const user_management_api_id = `https://${process.env.DOMAIN_AUTH0}/api/v2/`;
+const user_management_api_id = `https://${process.env.DOMAIN_OAUTH2}/api/v2/`;
 
 module.exports = function(app) {
   app.get('/api/hosts/:host_user_id_auth0/events', check_access_token(), save_new_user, async function(request, response, next) {
@@ -878,12 +878,12 @@ function check_access_token() {
       cache: true,
       rateLimit: true,
       jwksRequestsPerMinute: 5,
-      jwksUri: `https://eventmarket.eu.auth0.com/.well-known/jwks.json`,
+      jwksUri: `https://${process.env.DOMAIN_OAUTH2}/.well-known/jwks.json`,
     }),
 
     // Validate the audience and the issuer.
-    audience: 'https://eventmarket.com/api',
-    issuer: `https://eventmarket.eu.auth0.com/`,
+    audience: process.env.AUDIENCE_OAUTH2,
+    issuer: `https://${process.env.DOMAIN_OAUTH2}/`,
     algorithms: ['RS256'],
   });
 }

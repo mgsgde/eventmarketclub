@@ -2,8 +2,8 @@
 
 const config = require('../config.js');
 const assert = require('assert');
-const user_management_api_id = `https://${process.env.DOMAIN_AUTH0}/api/v2/`;
-const eventmarket_api_id = `https://eventmarket.com/api`;
+const user_management_api_id = `https://${process.env.DOMAIN_OAUTH2}/api/v2/`;
+const eventmarket_api_id = `https://eventmarketclub.com/api`;
 const axios = require('axios');
 const knex = require('knex')(config.DATABASE);
 
@@ -25,7 +25,7 @@ describe(`Testing users\n`, function() {
     let random_id = make_random_id(10);
 
     const new_user = await create_user({
-      email: `testuser-${random_id}@eventmarket.com`,
+      email: `testuser-${random_id}@eventmarketclub.com`,
       nickname: `testuser-${random_id}`,
     }, access_token_usermanagement);
 
@@ -55,7 +55,7 @@ describe(`Testing users\n`, function() {
 
     random_id = make_random_id(10);
 
-    const email_updated = `testuser-${random_id}@eventmarket.com`;
+    const email_updated = `testuser-${random_id}@eventmarketclub.com`;
     const nickname_updated = `testuser-${random_id}`;
 
     const patched_user = await patch_user(new_user.user_id, {email_auth0: email_updated, nickname_auth0: nickname_updated}, access_token_eventmarket);
@@ -72,7 +72,7 @@ describe(`Testing users\n`, function() {
     const random_id = make_random_id(10);
 
     const new_user = await create_user({
-      email: `testuser-${random_id}@eventmarket.com`,
+      email: `testuser-${random_id}@eventmarketclub.com`,
       nickname: `testuser-${random_id}`,
     }, access_token_usermanagement);
 
@@ -209,7 +209,7 @@ async function post_user({email, nickname}, access_token) {
 
   const options = {
     method: 'POST',
-    url: `https://${process.env.DOMAIN_AUTH0}/api/v2/users`,
+    url: `https://${process.env.DOMAIN_OAUTH2}/api/v2/users`,
     headers: {
       'Content-type': 'application/json',
       'Authorization': 'Bearer ' + access_token,
@@ -232,7 +232,7 @@ async function post_user({email, nickname}, access_token) {
 async function delete_auth0_user(user_id, access_token) {
   const options = {
     method: 'DELETE',
-    url: `https://${process.env.DOMAIN_AUTH0}/api/v2/users/${user_id}`,
+    url: `https://${process.env.DOMAIN_OAUTH2}/api/v2/users/${user_id}`,
     headers: {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + access_token,
@@ -252,7 +252,7 @@ async function delete_auth0_user(user_id, access_token) {
 // ########################################
 
 async function get_access_token(audience) {
-  const url = `https://${process.env.DOMAIN_AUTH0}/oauth/token`;
+  const url = `https://${process.env.DOMAIN_OAUTH2}/oauth/token`;
 
   const options = {
     method: 'POST',
@@ -261,8 +261,8 @@ async function get_access_token(audience) {
       'content-type': 'application/json',
     },
     data: JSON.stringify({
-      client_id: process.env.API_TEST_CLIENT_ID_AUTH0,
-      client_secret: process.env.API_TEST_CLIENT_SECRET_AUTH0,
+      client_id: process.env.BACKEND_TEST_SCRIPT_CLIENT_ID_OAUTH2,
+      client_secret: process.env.BACKEND_TEST_SCRIPT_SECRET_OAUTH2,
       audience: audience,
       grant_type: 'client_credentials',
     }),

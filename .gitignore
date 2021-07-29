@@ -2,3 +2,5 @@ node_modules
 build
 *.sqlite
 .env
+
+backend/tls_keys/

@@ -1,5 +1,5 @@
 # Event market
 
-Organize events and earn money. Just a fun project ... ;-)
+Organize events. Just a fun project ... ;-)
 
-![](screenshot.png)
+https://eventmarketclub.com
