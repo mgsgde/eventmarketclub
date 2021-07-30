@@ -1,3 +1,6 @@
+/* eslint jsx-a11y/click-events-have-key-events: "off"*/
+/* eslint jsx-a11y/interactive-supports-focus: "off"*/
+
 import React, {useState, useEffect} from 'react'
 import {
   Button, Row, Col, Form, FormGroup, Input,
@@ -6,8 +9,6 @@ import axios from 'axios'
 import FeedbackModal from '../components/FeedbackModal'
 import CreateEventModal from '../components/CreateEventModal'
 import Event from '../components/Event'
-import {EVENT_TYPES, SAMPLE_EVENTS} from '../utils/constants'
-import Spinner from '../components/Spinner'
 import ServerErrorModal from '../components/ServerErrorModal'
 import ReactTypingEffect from 'react-typing-effect';
 import {useAuth0} from '@auth0/auth0-react';
@@ -17,9 +18,6 @@ const Events = () => {
     like: 0,
     dislikes: 0,
   })
-  const [is_loading, set_is_loading] = useState(true)
-  // const [city, set_city] = useState('Berlin')
-  // const [in_eu, set_in_eu] = useState(true)
   const [feedback_response, set_feedback_response] = useState(null)
   const [is_showing_feedbackmodal, set_is_showing_feedbackmodal] = useState(false)
   const [is_showing_createEventModal, set_is_showing_createEventModal] = useState(false)
@@ -44,8 +42,6 @@ const Events = () => {
 
   const get_events = async (search_query) => {
     try {
-      set_is_loading(true)
-
       let url = '/api/events'
 
       if (search_query) {
@@ -60,21 +56,17 @@ const Events = () => {
         },
       })
 
-      set_is_loading(false)
 
       set_events(response.data)
     } catch (err) {
       console.error(err)
 
-      set_is_loading(false)
       set_error_response(err.response)
       set_is_showing_server_error_modal(true)
     }
   }
 
   const get_likes = async () => {
-    set_is_loading(true)
-
     const options = {
       method: 'get',
       // eslint-disable-next-line max-len
@@ -86,15 +78,12 @@ const Events = () => {
 
     const response = await axios(options)
 
-    set_is_loading(false)
 
     set_number_of_likes(response.data)
   }
 
   const like = async (bool) => {
     try {
-      set_is_loading(true)
-
       const options = {
         method: 'post',
         // eslint-disable-next-line max-len
@@ -110,16 +99,14 @@ const Events = () => {
       await axios(options)
 
       const result = await get_likes()
-      console.log("result", result)
+
       if (result) set_number_of_likes(result)
 
-      set_is_loading(false)
       set_feedback_response('Thx for your feedback.')
       set_is_showing_feedbackmodal(true)
     } catch (err) {
       set_feedback_response('You can only vote once.')
       set_is_showing_feedbackmodal(true)
-      set_is_loading(false)
     }
   }
 
@@ -145,33 +132,6 @@ const Events = () => {
 
   // ########################################
   // ########################################
-
-
-  const render_kind = (kind) => {
-    switch (kind) {
-      case EVENT_TYPES.WORKSHOP:
-        return <React.Fragment> <i class="fa fa-graduation-cap green-font"></i> {kind} </React.Fragment>
-        break;
-      case EVENT_TYPES.DAYGAME:
-        return <React.Fragment> <i class="fa fa-running green-font"></i> {kind} </React.Fragment>
-        break;
-      case EVENT_TYPES.NIGHTGAME:
-        return <React.Fragment><i class="fas fa-cocktail green-font"></i> {kind} </React.Fragment>
-        break;
-    }
-  }
-
-  const render_stars = (number_of_stars) => {
-    const res = []
-    for (let i = 0; i < 5; i++) {
-      if (i < number_of_stars) {
-        res.push(<span class="fa fa-star checked"></span>)
-      } else {
-        res.push(<span class="fa fa-star"></span>)
-      }
-    }
-    return res
-  }
 
   const render_events = () => {
     const cards = []
@@ -202,10 +162,10 @@ const Events = () => {
             </Col>
             <Col md="2" className="mb-3 text-center">
               <div className="mr-3">
-                <span onClick={() => like(true)} className="mr-3">
+                <span onClick={() => like(true)} className="mr-3" role="button">
                   <i class="fas fa-thumbs-up mr-2 thumb-button" style={{fontSize: '30px'}}/>{number_of_likes.likes}
                 </span>
-                <span onClick={() => like(false)}>
+                <span onClick={() => like(false)} role="button">
                   <i class="far fa-thumbs-down mr-2 thumb-button" style={{fontSize: '30px'}}/>{number_of_likes.dislikes}
                 </span>
               </div>

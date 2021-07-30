@@ -1417,7 +1417,6 @@ components:
         - total_places
         - description
         - type
-        - whatsapp_group_link
         - meeting_point
       properties:
         city: 
@@ -1436,11 +1435,6 @@ components:
           type: string  
         type:
           type: string
-          enum:
-          - WORKSHOP
-          - DAYGAME
-          - NIGHTGAME
-          - MEETUP
         whatsapp_group_link:
           type: string
         meeting_point:
@@ -1463,10 +1457,7 @@ components:
         description:
           type: string  
         type:
-          type: string
-          enum:
-          - WORKSHOP
-          - MEETUP  
+          type: string 
         whatsapp_group_link:
           type: string
         meeting_point:
@@ -1531,9 +1522,6 @@ components:
           type: string                        
         type:
           type: string
-          enum:
-          - WORKSHOP
-          - MEETUP  
         host_rating_sum:
           type: integer
         host_rating_count:
@@ -1599,11 +1587,6 @@ components:
           type: string                        
         type:
           type: string
-          enum:
-          - WORKSHOP
-          - DAYGAME
-          - NIGHTGAME
-          - MEETUP
         status:
           type: string
           enum:
@@ -1655,7 +1638,6 @@ components:
         - total_places
         - description
         - host_email_auth0
-        - whatsapp_group_link
         - meeting_point
         - host_rating_sum
         - host_rating_count
@@ -1683,11 +1665,6 @@ components:
           type: string                        
         type:
           type: string
-          enum:
-          - WORKSHOP
-          - DAYGAME
-          - NIGHTGAME
-          - MEETUP
         host_rating_sum:
           type: integer
         host_rating_count:

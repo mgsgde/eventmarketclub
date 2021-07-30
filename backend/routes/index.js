@@ -1,4 +1,5 @@
 /* eslint no-invalid-this: "off"*/
+
 const jwksRsa = require('jwks-rsa');
 const jwt = require('express-jwt');
 const config = require('../config');
@@ -737,14 +738,21 @@ module.exports = function(app) {
       }
 
       await knex.transaction(async (trx) => {
+        const guest = (await trx('guests').where({
+          event_id,
+          guest_user_id_auth0,
+        }).select())[0];
+
         await trx('guests').where({
           event_id,
           guest_user_id_auth0,
         }).delete();
 
-        await trx('events').where({
-          event_id,
-        }).increment('free_places', 1);
+        if (guest.status === 'ACCEPTED') {
+          await trx('events').where({
+            event_id,
+          }).increment('free_places', 1);
+        }
       });
 
       response.json({

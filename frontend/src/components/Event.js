@@ -8,7 +8,6 @@ import {
 } from 'reactstrap';
 import {useAuth0} from '@auth0/auth0-react'
 import {Link} from 'react-router-dom'
-import {EVENT_TYPES} from '../utils/constants'
 import ContactModal from './ContactModal'
 import CreateEventModal from './CreateEventModal'
 import {get_access_token} from '../utils/AccessToken'
@@ -33,7 +32,6 @@ const Event = (props) => {
   const [is_showing_confirmation_modal, set_is_showing_confirmation_modal] = useState(false)
   const [confirmation_message, set_confirmation_message] = useState()
   const [confirmation_callback, set_confirmation_callback] = useState()
-  const [confirmation_callback_arguments, set_confirmation_callback_arguments] = useState()
   const [rating_reviewee_nickname, set_rating_reviewee_nickname_auth0] = useState()
   const [rating_reviewee_user_id_auth0, set_rating_reviewee_user_id_auth0] = useState()
   const [rating_callback, set_rating_callback] = useState()
@@ -164,19 +162,9 @@ const Event = (props) => {
     set_confirmation_callback(() => delete_event)
     set_is_showing_confirmation_modal(true)
   }
-  // ########################################
-  // ########################################
 
-  const render_kind = (type) => {
-    switch (type) {
-      case EVENT_TYPES.WORKSHOP:
-        return <React.Fragment> <i class="fa fa-graduation-cap green-font"></i> {type} </React.Fragment>
-        break;
-      case EVENT_TYPES.MEETUP:
-        return <React.Fragment><i class="fas fa-coffee green-font"></i> {type} </React.Fragment>
-        break;
-    }
-  }
+  // ########################################
+  // ########################################
 
   const render_stars = (rating_sum, rating_count) => {
     const res = []
@@ -240,16 +228,16 @@ const Event = (props) => {
       <CardBody>
         <Row className="green-font mb-4">
           <Col>
-            <h3 className="green-font"> {render_kind(event.type)}</h3>
+            <h3 className="green-font"> <React.Fragment><i class="fas fa-coffee green-font"></i> {event.type} </React.Fragment></h3>
           </Col>
           <Col>
             <p className="mb-0 green-font">
               {event.city}
             </p>
             <p className='mb-0 green-font'>
-              {moment(event.start).format("YYYY-MM-DD (ddd.)")}<br/>
-              {moment(event.start).format("HH:mm")}{" to "}
-              {moment(event.end).format("HH:mm")}
+              {moment(event.start).format('YYYY-MM-DD (ddd.)')}<br/>
+              {moment(event.start).format('HH:mm')}{' to '}
+              {moment(event.end).format('HH:mm')}
             </p>
           </Col>
         </Row>
@@ -270,7 +258,7 @@ const Event = (props) => {
               reservations
             </p>
             <p className='mb-0 green-font'>
-                 {event.total_places - event.free_places} / {event.total_places}
+              {event.total_places - event.free_places} / {event.total_places}
             </p>
           </Col>
         </Row>
@@ -299,7 +287,6 @@ const Event = (props) => {
         set_is_showing={set_is_showing_confirmation_modal}
         message={confirmation_message}
         callback={confirmation_callback}
-        callback_arguments={confirmation_callback_arguments}
       />
       <RatingModal
         is_showing={is_showing_rating_modal}

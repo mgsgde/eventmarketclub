@@ -11,9 +11,9 @@ exports.setup = async () => {
       table.string('city').notNullable();
       table.integer('free_places').notNullable();
       table.integer('total_places').notNullable();
-      table.enu('type', ['WORKSHOP', 'DAYGAME', 'NIGHTGAME', 'MEETUP']).notNullable();
+      table.string('type').notNullable();
       table.text('description', 'longtext').notNullable();
-      table.string('whatsapp_group_link').notNullable();
+      table.string('whatsapp_group_link').defaultTo("");
       table.string('meeting_point').notNullable();
     });
   }

@@ -1,8 +1,3 @@
-export const EVENT_TYPES = {
-  WORKSHOP: 'WORKSHOP',
-  MEETUP: 'MEETUP',
-}
-
 export const SAMPLE_EVENTS = [
   {
     guests: [],

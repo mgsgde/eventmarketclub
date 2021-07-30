@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react'
 import {Button, Modal, ModalBody, ModalFooter, ModalHeader, Form, FormGroup, Label, Input, Row, Col} from 'reactstrap'
 import Spinner from './Spinner'
 import ServerErrorModal from './ServerErrorModal'
-import InfoModal from './InfoModal'
 import {get_access_token} from '../utils/AccessToken'
 import axios from 'axios'
 import {useAuth0} from '@auth0/auth0-react'
@@ -12,14 +11,14 @@ import moment from 'moment';
 const CreateEventModal = (props) => {
   const {is_showing, set_is_showing, callback, event_id} = props
 
-  const [start, set_start] = useState();
-  const [end, set_end] = useState();
-  const [city, set_city] = useState();
-  const [total_places, set_total_places] = useState();
-  const [free_places, set_free_places] = useState();
-  const [description, set_description] = useState();
+  const [start, set_start] = useState('2021-07-31T10:49:00');
+  const [end, set_end] = useState('2021-08-03T10:49:00');
+  const [city, set_city] = useState('karlsruhe');
+  const [total_places, set_total_places] = useState(12);
+  const [free_places, set_free_places] = useState(12);
+  const [description, set_description] = useState('no description');
   const [whatsapp_group_link, set_whatsapp_group_link] = useState();
-  const [meeting_point, set_meeting_point] = useState();
+  const [meeting_point, set_meeting_point] = useState('schloss');
   const [type, set_type] = useState('WORKSHOP');
 
   const [is_loading, set_is_loading] = useState(false)
@@ -91,12 +90,12 @@ const CreateEventModal = (props) => {
         total_places: total_places,
         description,
         type,
-        whatsapp_group_link: whatsapp_group_link || null,
+        whatsapp_group_link: whatsapp_group_link || '',
         meeting_point}
 
       const accessToken = await get_access_token()
 
-      const response = await axios({
+      await axios({
         method: 'patch',
         url: `/api/hosts/${user.sub}/events/${event_id}`,
         headers: {
@@ -127,13 +126,13 @@ const CreateEventModal = (props) => {
         free_places: total_places && Number(total_places),
         total_places: total_places && Number(total_places),
         description,
+        whatsapp_group_link: whatsapp_group_link || '',
         type,
-        whatsapp_group_link: whatsapp_group_link || null,
         meeting_point}
 
       const accessToken = await get_access_token()
 
-      const response = await axios({
+      await axios({
         method: 'post',
         url: `/api/hosts/${user.sub}/events`,
         headers: {
@@ -176,11 +175,7 @@ const CreateEventModal = (props) => {
             <Col md={4}>
               <FormGroup>
                 <Label for="type">Type</Label>
-                <Input type="select" name="type" id="type" value={type} onChange={(evt) => set_type(evt.target.value)}>
-                  <option value="">Select</option>
-                  <option value='WORKSHOP'>Workshop</option>
-                  <option value='MEETUP'>Meetup</option>
-                </Input>
+                <Input type="text" name="type" id="type" value={type} onChange={(evt) => set_type(evt.target.value)} autocomplete="off" />
               </FormGroup>
             </Col>
             <Col md={4}>
@@ -220,7 +215,7 @@ const CreateEventModal = (props) => {
             <Col md={6}>
               <FormGroup>
                 <Label for="whatsapp_group_link">Whatsapp Group Link
-                  <a href="https://faq.whatsapp.com/android/chats/how-to-create-and-invite-into-a-group" target="_blank">
+                  <a href="https://faq.whatsapp.com/android/chats/how-to-create-and-invite-into-a-group" target="_blank" rel="noreferrer">
                     <i class="fas fa-question green-font ml-2" style={{cursor: 'pointer'}}/>
                   </a>
                 </Label>
