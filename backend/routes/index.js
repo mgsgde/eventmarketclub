@@ -3,7 +3,7 @@ const jwksRsa = require('jwks-rsa');
 const jwt = require('express-jwt');
 const config = require('../config');
 const knex = require('knex')(config.DATABASE);
-const rateLimit = require('express-rate-limit');
+const rate_limit = require('express-rate-limit');
 const users_auth0 = require('../utils/users_auth0');
 const user_management_api_id = `https://${process.env.DOMAIN_OAUTH2}/api/v2/`;
 
@@ -821,7 +821,7 @@ module.exports = function(app) {
   // ########################################
   // ########################################
 
-  app.post('/api/likes', post_rating_limiter, async function(request, response, next) {
+  app.post('/api/likes', post_likes_limiter, async function(request, response, next) {
     const {like} = request.body;
     console.log(1);
     if (like) {
@@ -864,9 +864,9 @@ module.exports = function(app) {
 // ########################################
 // ########################################
 
-const post_rating_limiter = rateLimit({
-  windowMs: 15 * 1000,
-  max: 1001,
+const post_likes_limiter = rate_limit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 1, // limit each IP to 100 requests per windowMs
 });
 
 // ########################################
